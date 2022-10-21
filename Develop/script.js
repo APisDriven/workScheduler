@@ -11,57 +11,61 @@ function clock() {
 
 // Save Scheduling Tasks
 
+function timeTrack() {
+    //get current number of hours.
+    var timeNow = moment().hour();
 
+    // loop through time blocks
+    $(".time-block").each(function () {
+        var blockTime = $(this).children("textarea").attr("id");
+        blockTime = parseInt(blockTime)
+
+        console.log(blockTime)
+        // change class based on time
+        if (blockTime < timeNow) {
+            $(this).children("textarea").removeClass("future");
+            $(this).children("textarea").removeClass("present");
+            $(this).children("textarea").addClass("past");
+        }
+        else if (blockTime === timeNow) {
+            $(this).children("textarea").removeClass("past");
+            $(this).children("textarea").removeClass("future");
+            $(this).children("textarea").addClass("present");
+        }
+        else {
+            $(this).children("textarea").removeClass("present");
+            $(this).children("textarea").removeClass("past");
+            $(this).children("textarea").addClass("future");
+
+        }
+    })
+}
 
 function init () {
-    var saveBtnEl = document.querySelector(".saveBtn") 
+    var saveBtnEl = $(".saveBtn") 
 
-    saveBtnEl.addEventListener("click", function () {
-        var time = $(this).parent().attr("id");
+    saveBtnEl.on("click", function () {
+        var time = $(this).attr("data-id");
         var text = $(this).siblings(".description").val();
+
         // Save values locally
         localStorage.setItem(time, text);
     })
    
-    function timeTrack() {
-        //get current number of hours.
-        var timeNow = moment().hour();
-
-        // loop through time blocks
-        $(".time-block").each(function () {
-            var blockTime = timeBlock.name;
-
-            // change class based on time
-            if (blockTime < timeNow) {
-                $(this).removeClass("future");
-                $(this).removeClass("present");
-                $(this).addClass("past");
-            }
-            else if (blockTime === timeNow) {
-                $(this).removeClass("past");
-                $(this).removeClass("future");
-                $(this).addClass("present");
-            }
-            else {
-                $(this).removeClass("present");
-                $(this).removeClass("past");
-                $(this).addClass("future");
-
-            }
-        })
-    }
+   
 
     // Get item from local storage if any
-    $("#9am.description").val(localStorage.getItem("hour9"));
-    $("#10am.description").val(localStorage.getItem("hour10"));
-    $("#11am.description").val(localStorage.getItem("hour11"));
-    $("#12pm.description").val(localStorage.getItem("hour12"));
-    $("#1pm.description").val(localStorage.getItem("hour13"));
-    $("#2pm.description").val(localStorage.getItem("hour14"));
-    $("#3pm.description").val(localStorage.getItem("hour15"));
-    $("#4pm.description").val(localStorage.getItem("hour16"));
-    $("#5pm.description").val(localStorage.getItem("hour17"));
+    $("#9").val(localStorage.getItem("9"));
+    $("#10").val(localStorage.getItem("10"));
+    $("#11").val(localStorage.getItem("11"));
+    $("#12").val(localStorage.getItem("12"));
+    $("#13").val(localStorage.getItem("13"));
+    $("#14").val(localStorage.getItem("14"));
+    $("#15").val(localStorage.getItem("15"));
+    $("#16").val(localStorage.getItem("16"));
+    $("#17").val(localStorage.getItem("17"));
 
-    timeTrack();
+    
 }
-
+init ();
+timeTrack();
